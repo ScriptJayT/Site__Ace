@@ -1,0 +1,30 @@
+@layer reset, core;
+
+@layer reset {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    *, *::before, *::after{
+        box-sizing: border-box;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: unset;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font: inherit;
+    }
+
+    nav li::marker {
+        color: transparent;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    body {
+        font-family: 'Courier New', Courier, monospace;
+    }
+}

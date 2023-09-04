@@ -1,0 +1,11 @@
+.pancake {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem; /* adjustable */
+
+    & > * {
+        width: 100%;
+        max-width: 300px; /* adjustable */
+    }
+}

@@ -1,0 +1,49 @@
+@layer core{
+    body {
+        margin-block: 2.5rem 1.75rem;
+        font-size: 1.25rem;
+        color: white;
+        background-color: rgb(1, 37, 68);
+        overflow-y: scroll;
+    }
+
+    .box {
+        min-height: 4rem;
+        border: 2px solid silver;
+        border-radius: 0.5rem;
+        background-color: rgb(92, 92, 207);
+    }
+
+    section {
+        max-width: 1000px;
+        margin-inline: auto;
+        padding-block: 2rem;
+        border: 1px solid grey;
+
+        & > :is(header, details) {
+            padding-inline: 2rem;
+        }
+
+        & > header {
+            text-align: center;
+            margin-bottom: 2rem;
+
+            & h2{
+                font-size: 2rem;
+            }
+
+            & h2 +p {
+                margin-top: 0.7em;
+            }
+        }
+
+        &+& {
+            margin-top: 5rem;
+        }
+
+        & :is(style, code) {
+            display: block;
+            white-space-collapse: preserve;
+        }
+    }
+}
