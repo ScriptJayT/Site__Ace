@@ -29,6 +29,14 @@ function exit_with_error($_code){
     die();
 }
 
+function for_inline($_array, $_fn){
+    $x = [];
+    foreach ($_array as $_key => $_value) {
+        array_push($x, $_fn($_key, $_value));
+    }
+    return $x;
+}
+
 class URI {
 
     private static function ex(){
@@ -73,13 +81,16 @@ class HTMA {
 class MDX {
     static function read_folders(){
         $path = path('mdx');
-        return array_filter(scandir($path), function($_folder_item){
+        return array_values(array_filter(scandir($path), function($_folder_item){
             return !in_array($_folder_item, ['.', '..']) && is_dir(path("mdx/{$_folder_item}"));
-        });
+        }));
     }
 
     static function read_files($_folder){
         $path = path("mdx/{$_folder}");
+        return array_values(array_filter(scandir($path), function($_folder_item) use($path) {
+            return !in_array($_folder_item, ['.', '..']) && is_file("{$path}/{$_folder_item}") && STR::ends_with($_folder_item, "\.md");
+        }));
     }
 }
 
@@ -93,4 +104,14 @@ class CLEAN {
         return iconv("UTF-8", "ASCII", trim(str_replace([" "] , ["-"], $_str)));
     }
 
+}
+
+class STR {
+    // escape characters with funcion in RegEx fe \.md
+    static function ends_with(string $_str, string $_sub){
+        return preg_match("/.*".$_sub."$/", $_str) === 1;
+    }
+    static function starts_with(string $_str, string $_sub){
+        return preg_match("/^".$_sub."/", $_str) === 1;
+    }
 }

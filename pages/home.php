@@ -13,12 +13,6 @@
             margin-inline: auto;
         }
 
-        header {
-            text-align: center;
-            font-size: 1.75em;
-            margin-bottom: 1em;
-        }
-
         nav {
             margin-bottom: 1.25em;
         }

@@ -1,4 +1,4 @@
-<?php require_once('core.php') ?>
+<?php require_once('core.php'); ?>
 
 <?php
 
@@ -21,24 +21,24 @@ $current_data_get_function = $server_endpoints[URI::first()]['data'];
 pretty_print( "Url Root: " . URI::first());
 
 function get_home(){
-    $x = [];
-    foreach (MDX::read_folders() as $_folder) {
-        array_push($x,[
-            'name' => CLEAN::uri_to_readable($_folder),
-            'url' => $_folder,
-        ]);
-    }
     return [
-        'navs' => $x,
+        'navs' => for_inline(MDX::read_folders(), 
+            fn($_, $_folder)=> [
+                'name' => CLEAN::uri_to_readable($_folder),
+                'url' => $_folder,
+            ]
+        ),
     ];
 }
 function check_next(){
     $folder = trim(URI::last(), '/');
     if(!URI::has_length(2)) throw new Error('Invalid URI Length for this route');
     if(!in_array($folder, MDX::read_folders())) throw new Error('Unknown URI destination --' . $folder);
+
     return [
         'header' => CLEAN::uri_to_readable($folder),
         'title' => "showcase " . CLEAN::uri_to_readable($folder),
+        'items' => MDX::read_files($folder),
     ];
 }
 
