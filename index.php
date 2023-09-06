@@ -1,82 +1,57 @@
 <?php require_once('core.php') ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php if(FIVE_ACE): ?>
-    <script async data-id="five-server" src="http://localhost:5500/fiveserver.js"></script>
-    <?php endif; ?>
-
-    <?php my_fetch("partials/head.php") ?>
-    <title>Ace</title>
-    
-    <style>
-        .wrapper {
-            padding-inline: 1.25rem;
-            max-width: calc(50ch + 2 * 1.25rem);
-            margin-inline: auto;
-        }
-
-        header {
-            text-align: center;
-            font-size: 1.75em;
-            margin-bottom: 1em;
-        }
-
-        nav {
-            margin-bottom: 1.25em;
-        }
-
-        nav ul {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-        nav a {
-            display: block;
-            height: 100%;
-            padding: 1rem;
-            border: 1px solid;
-            border-radius: 0.25em;
-        }
-    </style>
-</head>
-
 <?php
-$navs = [
-    [
-        'name' => "CSS Resets",
-        'url' => "css_resets",
+
+// Check against endpoints & Get Current Page View
+$server_endpoints = [
+    '/'=>[
+       'view' => "home",
+       'data' => "get_home",
     ],
-    [
-        'name' => "CSS Layouts",
-        'url' => "css_layouts",
+    '/show'=> [
+        'view' => "show",
+        'data' => "check_next",
     ],
 ];
+
+if(!in_array(URI::first(), array_keys($server_endpoints))) exit_with_error(404);
+$current_page = $server_endpoints[URI::first()]['view'];
+$current_data_get_function = $server_endpoints[URI::first()]['data'];
+
+pretty_print( "Url Root: " . URI::first());
+
+function get_home(){
+    $x = [];
+    foreach (MDX::read_folders() as $_folder) {
+        array_push($x,[
+            'name' => CLEAN::uri_to_readable($_folder),
+            'url' => $_folder,
+        ]);
+    }
+    return [
+        'navs' => $x,
+    ];
+}
+function check_next(){
+    $folder = trim(URI::last(), '/');
+    if(!URI::has_length(2)) throw new Error('Invalid URI Length for this route');
+    if(!in_array($folder, MDX::read_folders())) throw new Error('Unknown URI destination --' . $folder);
+    return [
+        'header' => CLEAN::uri_to_readable($folder),
+        'title' => "showcase " . CLEAN::uri_to_readable($folder),
+    ];
+}
+
+try {
+    $current_data = call_user_func($current_data_get_function);
+} catch (\Throwable $th) {
+    if(FIVE_ACE) pretty_print($th);
+    exit_with_error(404);
+}
+
+pretty_print( "Layout: " . $current_page);
+pretty_print($current_data);
+// render view with data
+invoke("pages/{$current_page}.php", $current_data);
+
 ?>
-
-<body>
-    <?php var_dump($_SERVER['DOCUMENT_ROOT']);?>
-
-    <div class="wrapper">
-        <header>
-            <h1>Ace Showcase</h1>
-        </header>
-        <nav>
-            <ul>
-                <?php foreach ($navs as $_link): ?>
-                <li>
-                    <a
-                        target=_blank
-                        rel=noopener 
-                        href="/show/<?php echo $_link['url'].'.php' ?? '';?>"
-                    >
-                        <?php echo $_link['name'] ?? '' ?>
-                    </a>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-        </nav>
-    </div>
-</body>
-</html>
