@@ -115,3 +115,5 @@ class STR {
         return preg_match("/^".$_sub."/", $_str) === 1;
     }
 }
+
+include(path("controller.php"));

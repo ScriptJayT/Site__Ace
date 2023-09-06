@@ -1,52 +1,30 @@
 <?php require_once('core.php'); ?>
 
 <?php
-
 // Check against endpoints & Get Current Page View
 $server_endpoints = [
     '/'=>[
        'view' => "home",
-       'data' => "get_home",
+       'data_method' => "get_home",
     ],
     '/show'=> [
         'view' => "show",
-        'data' => "check_next",
+        'data_method' => "check_next",
     ],
 ];
 
 if(!in_array(URI::first(), array_keys($server_endpoints))) exit_with_error(404);
 $current_page = $server_endpoints[URI::first()]['view'];
-$current_data_get_function = $server_endpoints[URI::first()]['data'];
+$current_data_get_function = $server_endpoints[URI::first()]['data_method'];
 
-pretty_print( "Url Root: " . URI::first());
-pretty_print( "Layout: " . $current_page);
-
-function get_home(){
-    return [
-        'navs' => for_inline(MDX::read_folders(), 
-            fn($_, $_folder)=> [
-                'name' => CLEAN::uri_to_readable($_folder),
-                'url' => $_folder,
-            ]
-        ),
-    ];
-}
-function check_next(){
-    $folder = trim(URI::last(), '/');
-    if(!URI::has_length(2)) throw new Error('Invalid URI Length for this route');
-    if(!in_array($folder, MDX::read_folders())) throw new Error('Unknown URI destination --' . $folder);
-
-    return [
-        'header' => CLEAN::uri_to_readable($folder),
-        'title' => "showcase " . CLEAN::uri_to_readable($folder),
-        'items' => MDX::read_files($folder),
-    ];
-}
+// pretty_print( "Url Root: " . URI::first());
+// pretty_print( "Layout: " . $current_page);
 
 // render view with data or throw 404 if that fails
 try {
-    $current_data = call_user_func($current_data_get_function);
-    pretty_print($current_data);
+    $current_data = call_user_func(['PageController', $current_data_get_function]);
+    // pretty_print($current_data);
+
     invoke("pages/{$current_page}.php", $current_data);
 } catch (\Throwable $th) {
     if(FIVE_ACE) pretty_print($th);
