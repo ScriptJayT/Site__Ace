@@ -1,3 +1,5 @@
+<?php defined("ACE_ROOT") or die();?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -19,6 +19,7 @@ $current_page = $server_endpoints[URI::first()]['view'];
 $current_data_get_function = $server_endpoints[URI::first()]['data'];
 
 pretty_print( "Url Root: " . URI::first());
+pretty_print( "Layout: " . $current_page);
 
 function get_home(){
     return [
@@ -42,16 +43,15 @@ function check_next(){
     ];
 }
 
+// render view with data or throw 404 if that fails
 try {
     $current_data = call_user_func($current_data_get_function);
+    pretty_print($current_data);
+    invoke("pages/{$current_page}.php", $current_data);
 } catch (\Throwable $th) {
     if(FIVE_ACE) pretty_print($th);
     exit_with_error(404);
 }
 
-pretty_print( "Layout: " . $current_page);
-pretty_print($current_data);
-// render view with data
-invoke("pages/{$current_page}.php", $current_data);
 
 ?>
