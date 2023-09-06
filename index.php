@@ -1,10 +1,13 @@
+<?php require_once('core.php') ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async data-id="five-server" src="http://localhost:5500/fiveserver.js"></script>
 
-    <?php include( $_SERVER['DOCUMENT_ROOT'] . "partials/head.php"); ?>
+    <?php my_fetch("partials/head.php") ?>
     <title>Ace</title>
-
+    
     <style>
         .wrapper {
             padding-inline: 1.25rem;
@@ -51,6 +54,8 @@ $navs = [
 ?>
 
 <body>
+    <?php var_dump($_SERVER['DOCUMENT_ROOT']);?>
+
     <div class="wrapper">
         <header>
             <h1>Ace Showcase</h1>
