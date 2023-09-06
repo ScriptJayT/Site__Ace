@@ -3,7 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php if(FIVE_ACE): ?>
     <script async data-id="five-server" src="http://localhost:5500/fiveserver.js"></script>
+    <?php endif; ?>
 
     <?php my_fetch("partials/head.php") ?>
     <title>Ace</title>
