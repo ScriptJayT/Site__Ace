@@ -10,10 +10,6 @@
 
 <!-- todo: find how to include by document root on five-server -->
 
-<link rel="stylesheet" href="reset.css">
-<link rel="stylesheet" href="core.css">
-<link rel="stylesheet" href="utils.css">
-
-<link rel="stylesheet" href="../reset.css">
-<link rel="stylesheet" href="../core.css">
-<link rel="stylesheet" href="../utils.css">
+<link rel="stylesheet" href="../assets/reset.css">
+<link rel="stylesheet" href="../assets/core.css">
+<link rel="stylesheet" href="../assets/utils.css">
