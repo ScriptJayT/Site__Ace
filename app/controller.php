@@ -21,7 +21,7 @@ class PageController {
         return [
             'header' => CLEAN::uri_to_readable($folder),
             'title' => "Cases for " . CLEAN::uri_to_readable($folder),
-            'items' => MDX::read_files($folder),
+            'items' => MDX::prepare_content($folder),
         ];
     }
 }

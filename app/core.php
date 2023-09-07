@@ -29,6 +29,16 @@ function exit_with_error($_code){
     die();
 }
 
+function to_asso_array($_array, $_fn){
+    $x = [];
+    foreach (array_filter($_array) as $_v) {
+        $res = $_fn($_v);
+        if(!$res || !$res['key']) continue;
+        $x[$res['key']] = $res['value'] ?? '';
+    }
+    return $x;
+}
+
 function for_inline($_array, $_fn){
     $x = [];
     foreach ($_array as $_key => $_value) {
@@ -69,6 +79,9 @@ class URI {
 }
 
 class MDX {
+
+    static $allowed_matter = ['title', 'source', 'emmet'];
+
     static function read_folders(){
         $path = path('mdx');
         return array_values(array_filter(scandir($path), function($_folder_item){
@@ -76,16 +89,63 @@ class MDX {
         }));
     }
 
-    static function read_files($_folder){
+   private static function read_files($_folder){
         $path = path("mdx/{$_folder}");
         return array_values(array_filter(scandir($path), function($_folder_item) use($path) {
             return !in_array($_folder_item, ['.', '..']) && is_file("{$path}/{$_folder_item}") && STR::ends_with($_folder_item, "\.md");
         }));
     }
+    private static function file_content(string $_file_path){
+        if(!is_file($_file_path)) return;
 
-    static function files_content(array $_folders){
-        
+        try {
+            $handle = fopen($_file_path, "rb");
+            $contents = fread($handle, filesize($_file_path));
+            fclose($handle);
+        } catch (\Throwable) {
+            return;
+        }
+
+        $split = array_filter(explode("---",$contents));
+
+        if(count($split) !== 2) return; #missing frontmatter or content;
+
+        $front_matter = to_asso_array(explode(PHP_EOL, $split[0]), function($_matter){
+            $_matter = trim($_matter);
+
+            $x = explode(": ", $_matter)[0];
+            $y = str_replace("{$x}: ", "", $_matter);
+            if($y === $x) {
+                $x = trim($x, ':');
+                $y = "";
+            } 
+
+            if(!in_array($x, self::$allowed_matter)) return;
+            
+            return [
+                'key' => $x,
+                'value' => $y,
+            ];
+        });
+        $content = trim($split[1]);
+
+        return [
+            ...$front_matter,
+            'show' => $content,
+        ];
     }
+
+    public static function prepare_content($_folder) {
+       return array_filter(array_map(function($_file)use($_folder){
+            $c = self::file_content(path( "mdx/". $_folder . "/" . $_file));
+
+            if(!$c['title'] ?? false) return;
+            if(!$c['show']) return;
+
+            return $c;
+       }, self::read_files($_folder)));
+    }
+
 }
 
 class CLEAN {
