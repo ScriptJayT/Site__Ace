@@ -1,7 +1,7 @@
 <?php
 
 define('ACE_ROOT', 'my_string');
-define('FIVE_ACE', true);
+define('FIVE_ACE', true); #five server extension for VS-Code
 
 function pretty_print(mixed $_v){
     echo '<details open style="margin-bottom:2rem;padding-inline:3ch">';
