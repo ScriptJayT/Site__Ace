@@ -89,7 +89,7 @@ class MDX {
         }));
     }
 
-   private static function read_files($_folder){
+    private static function read_files($_folder){
         $path = path("mdx/{$_folder}");
         return array_values(array_filter(scandir($path), function($_folder_item) use($path) {
             return !in_array($_folder_item, ['.', '..']) && is_file("{$path}/{$_folder_item}") && STR::ends_with($_folder_item, "\.md");
@@ -132,6 +132,7 @@ class MDX {
         return [
             ...$front_matter,
             'show' => $content,
+            'type' => 'css',
         ];
     }
 
@@ -142,10 +143,11 @@ class MDX {
             if(!$c['title'] ?? false) return;
             if(!$c['show']) return;
 
+            $c['emmet'] = PARSER::emmet_to_html($c['emmet'] ?? '');
+
             return $c;
        }, self::read_files($_folder)));
     }
-
 }
 
 class CLEAN {
@@ -167,6 +169,50 @@ class STR {
     }
     static function starts_with(string $_str, string $_sub){
         return preg_match("/^".$_sub."/", $_str) === 1;
+    }
+}
+
+Class PARSER {
+    public static function emmet_to_html($emmet) {
+        if(!$emmet) return '';
+
+        $string = "";
+        $close = 0;
+        $layers = explode(">",$emmet);
+        
+        foreach ($layers as $_layer) {
+            $_layer = trim($_layer, '.');
+
+            $items = explode("+", $_layer);
+            $has_siblings = count($items)>1;
+            $multi = explode("*", $_layer);
+            $has_clones = count($multi) === 2;
+
+            if(!$has_siblings && !$has_clones) {
+                $string .= "<div class={$_layer}>";
+                $close++;
+            }
+            elseif(!$has_siblings && $has_clones) {
+                $count = $multi[1];
+                $_layer = trim($multi[0], );
+                for ($i=0; $i < $count; $i++) { 
+                    $string .= "<div class={$_layer}></div>";
+                }
+            }
+            elseif($has_siblings) {
+                foreach($items as $_item) {
+                    $_item = trim($_item, '.');
+                    $string .= "<div class={$_item}>";
+                    $close++;
+                }
+            }
+        }
+        
+        for ($i=0; $i < $close; $i++) { 
+            $string .= "</div>";
+        }
+
+        return htmlentities($string);
     }
 }
 

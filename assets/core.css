@@ -47,7 +47,7 @@
             margin-top: 5rem;
         }
 
-        & :is(style, code) {
+        & :is(code) {
             display: block;
             white-space-collapse: preserve;
         }

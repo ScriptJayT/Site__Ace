@@ -20,6 +20,10 @@ $current_data_get_function = $server_endpoints[URI::first()]['data_method'];
 // pretty_print( "Url Root: " . URI::first());
 // pretty_print( "Layout: " . $current_page);
 
+pretty_print(PARSER::emmet_to_html('.test*4'));
+pretty_print(PARSER::emmet_to_html('.test>.time*4'));
+dd(PARSER::emmet_to_html('.test>.time+.time'));
+
 // render view with data or throw 404 if that fails
 try {
     $current_data = call_user_func(['PageController', $current_data_get_function]);
