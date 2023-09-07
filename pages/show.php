@@ -22,22 +22,24 @@
         <header>
             <h1><?php echo $header; ?></h1>
         </header>
+        <style>
+            .showcase {
+                <?php foreach ($items as $_showcase):?>
+                    <?php if($_showcase['type'] !== "css") continue;?>                
+                    & <?php echo $_showcase['show']; ?>
+                <?php endforeach; ?>
+            }
+        </style>
 
         <?php foreach ($items as $_showcase): ?>
             <section>
-                <?php if($_showcase['type'] === "css"): ?>
-                    <style>
-                        <?php echo $_showcase['show']; ?>
-                    </style>
-                <?php endif; ?>
-
                 <header>
                     <h2>
                         <?php echo $_showcase['title']; ?>
                     </h2>
                     <?php if($_showcase['source'] ?? false):?>
                         <a 
-                        <?php HTMA::target($_showcase['source']); ?>
+                        <?php HTMA::external($_showcase['source']); ?>
                         >Src</a>
                     <?php endif;?>
                     <?php if($_showcase['description'] ?? false):?>
@@ -47,13 +49,13 @@
 
                 <content>
                     <?php if($_showcase['emmet'] ?? false):?>
-                        <?php echo $_showcase['emmet']; ?>
+                        <?php HTMA::unsafe($_showcase['emmet']); ?>
                     <?php endif;?>
                 </content>
 
                 <details>
                     <summary>Code</summary>
-                    <code><?php echo $_showcase['show']; ?></code>
+                    <code class="showcase"><?php echo $_showcase['show']; ?></code>
                 </details>
             </section>
         <?php endforeach ?>
