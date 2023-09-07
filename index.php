@@ -1,4 +1,4 @@
-<?php require_once('core.php'); ?>
+<?php require_once('app/core.php'); ?>
 
 <?php
 // Check against endpoints & Get Current Page View
@@ -23,7 +23,7 @@ $current_data_get_function = $server_endpoints[URI::first()]['data_method'];
 // render view with data or throw 404 if that fails
 try {
     $current_data = call_user_func(['PageController', $current_data_get_function]);
-    // pretty_print($current_data);
+    pretty_print($current_data);
 
     invoke("pages/{$current_page}.php", $current_data);
 } catch (\Throwable $th) {

@@ -1,4 +1,4 @@
-<?php
+<?php defined("ACE_ROOT") or die();
 
 class PageController {
 
@@ -20,7 +20,7 @@ class PageController {
     
         return [
             'header' => CLEAN::uri_to_readable($folder),
-            'title' => "showcase " . CLEAN::uri_to_readable($folder),
+            'title' => "Cases for " . CLEAN::uri_to_readable($folder),
             'items' => MDX::read_files($folder),
         ];
     }

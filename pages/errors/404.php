@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <?php invoke("partials/head.php") ?>
-    <title>Error: 404</title>
+    <title>Ace :: Error 404</title>
 
     <meta name=robots content="noindex, nofollow, nosnippet, noarchive, nocache" />
 </head>

@@ -68,16 +68,6 @@ class URI {
     }
 }
 
-class HTMA {
-    static function target(string $_link = "") {
-        echo "
-            target=_blank
-            rel=noopener 
-            href=/{$_link}
-        ";
-    }
-}
-
 class MDX {
     static function read_folders(){
         $path = path('mdx');
@@ -91,6 +81,10 @@ class MDX {
         return array_values(array_filter(scandir($path), function($_folder_item) use($path) {
             return !in_array($_folder_item, ['.', '..']) && is_file("{$path}/{$_folder_item}") && STR::ends_with($_folder_item, "\.md");
         }));
+    }
+
+    static function files_content(array $_folders){
+        
     }
 }
 
@@ -116,4 +110,5 @@ class STR {
     }
 }
 
-include(path("controller.php"));
+include(path("app/controller.php"));
+include(path("app/directives.php"));
