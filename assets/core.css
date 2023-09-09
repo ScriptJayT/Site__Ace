@@ -9,7 +9,7 @@
 
     .box {
         min-height: 4rem;
-        border: 2px solid silver;
+        border: 1px solid silver;
         border-radius: 0.5rem;
         background-color: rgb(92, 92, 207);
     }
@@ -23,7 +23,6 @@
     section {
         max-width: 1000px;
         margin-inline: auto;
-        padding-block: 2rem;
         border: 1px solid grey;
 
         & > :is(header, details) {
@@ -32,7 +31,7 @@
 
         & > header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-block: 2rem;
 
             & h2{
                 font-size: 2rem;
@@ -47,7 +46,21 @@
             margin-top: 5rem;
         }
 
-        & :is(code) {
+        & content {
+            display: block;
+            overflow: hidden;
+            resize: both;
+            max-width: 100%;
+            border: 2px solid red;
+            margin-bottom: 1.5rem;
+        }
+
+        & details {
+            padding-block: 1.5rem;
+            background-color: hsl(0, 0%, 0%, 0.5);
+        }
+
+        & code {
             display: block;
             white-space-collapse: preserve;
         }

@@ -25,14 +25,16 @@
         <style>
             .showcase {
                 <?php foreach ($items as $_showcase):?>
-                    <?php if($_showcase['type'] !== "css") continue;?>                
-                    & <?php echo $_showcase['show']; ?>
+                    <?php if($_showcase['type'] !== "css") continue;?>
+                    <?php foreach($_showcase['show'] as $_case): ?>                
+                        & <?php echo $_case; ?>
+                    <?php endforeach; ?>
                 <?php endforeach; ?>
             }
         </style>
 
         <?php foreach ($items as $_showcase): ?>
-            <section>
+            <section class="showcase">
                 <header>
                     <h2>
                         <?php echo $_showcase['title']; ?>
@@ -47,18 +49,23 @@
                     <?php endif;?>
                 </header>
 
-                <content>
-                    <?php if($_showcase['emmet'] ?? false):?>
+                <?php if($_showcase['emmet'] ?? false):?>
+                    <content>
                         <?php HTMA::unsafe($_showcase['emmet']); ?>
-                    <?php endif;?>
-                </content>
+                    </content>
+                <?php endif;?>
 
-                <details>
-                    <summary>Code</summary>
-                    <?php foreach($_showcase['show'] as $_case): ?>
-                    <code class="showcase"><?php echo $_case; ?></code>
-                    <?php endforeach; ?>
-                </details>
+                <?php if(count($_showcase['show']) > 0): ?>
+                    <details>
+                        <summary>Code</summary>
+                        <?php foreach($_showcase['show'] as $_case): ?>
+                            <div>
+                                <button>copy</button>
+                                <code class="showcase"><?php echo $_case; ?></code>
+                            </div>
+                        <?php endforeach; ?>
+                    </details>
+                <?php endif; ?>
             </section>
         <?php endforeach ?>
 

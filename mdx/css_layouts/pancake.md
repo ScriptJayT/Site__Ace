@@ -10,6 +10,6 @@ emmet: .pancake>.box*4
 
     & > * {
         width: 100%;
-        max-width: 300px; /* adjustable */
+        max-width: 175px; /* adjustable */
     }
 }
