@@ -6,10 +6,13 @@ emmet: .pancake>.box*4
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem; /* adjustable */
+    gap: 1rem; /*adjustable*/
+}
 
-    & > * {
-        width: 100%;
-        max-width: 175px; /* adjustable */
-    }
+&--&--&
+
+/* for demo purposes */
+.pancake .box {
+    width: 100%;
+    max-width: 175px; 
 }

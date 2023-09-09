@@ -25,7 +25,7 @@
         <style>
             .showcase {
                 <?php foreach ($items as $_showcase):?>
-                    <?php if($_showcase['type'] !== "css") continue;?>
+                    <?php if(!$_showcase['emmet']) continue;?>
                     <?php foreach($_showcase['show'] as $_case): ?>                
                         & <?php echo $_case; ?>
                     <?php endforeach; ?>
@@ -59,7 +59,7 @@
                     <details>
                         <summary>Code</summary>
                         <?php foreach($_showcase['show'] as $_case): ?>
-                            <div>
+                            <div class="copy-block">
                                 <button>copy</button>
                                 <code class="showcase"><?php echo $_case; ?></code>
                             </div>

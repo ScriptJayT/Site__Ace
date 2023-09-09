@@ -135,7 +135,6 @@ class MDX {
         return [
             ...$front_matter,
             'show' => $content,
-            'type' => 'css',
         ];
     }
 

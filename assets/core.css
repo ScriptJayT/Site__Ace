@@ -50,6 +50,9 @@
             display: block;
             overflow: hidden;
             resize: both;
+            min-height: 4rem;
+            max-height: min(50vh, 100rem);
+            min-width: 4rem;
             max-width: 100%;
             border: 2px solid red;
             margin-bottom: 1.5rem;
@@ -60,9 +63,21 @@
             background-color: hsl(0, 0%, 0%, 0.5);
         }
 
-        & code {
-            display: block;
-            white-space-collapse: preserve;
+        & .copy-block {
+            & + & {
+                margin-top: 2rem;
+            }
+
+            & button {
+                cursor: pointer;
+                display: block;
+                margin-left: auto;
+            }
+
+            & code {
+                display: block;
+                white-space-collapse: preserve;
+            }
         }
     }
 }
