@@ -19,6 +19,9 @@
 
 <body>
     <div class="wrapper">
+        <nav>
+            <a href="/">Go Back</a>
+        </nav>
         <header>
             <h1><?php echo $header; ?></h1>
         </header>

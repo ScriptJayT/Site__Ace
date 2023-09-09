@@ -42,7 +42,7 @@
                 <?php foreach ($navs as $_link): ?>
                 <li>
                     <a
-                        <?php HTMA::target("show/{$_link['url']}") ?>
+                        href="show/<?php echo$_link['url']?>"
                     >
                         <?php echo $_link['name'] ?? '' ?>
                     </a>
