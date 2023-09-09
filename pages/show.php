@@ -68,6 +68,10 @@
                 <?php endif; ?>
             </section>
         <?php endforeach ?>
+
+        <footer>
+            <div id=message></div>
+        </footer>
     </div>
 </body>
 </html>
