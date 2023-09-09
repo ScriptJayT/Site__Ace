@@ -13,6 +13,13 @@
         border-radius: 0.5rem;
         background-color: rgb(92, 92, 207);
     }
+    .img {
+        min-height: 5rem;
+        background-color: rgb(167, 71, 71);
+    }
+    .txt::after {
+        content: 'Lorem Ipsum Dolor Sit Amet';
+    }
 
     header:has(>h1) {
         text-align: center;
