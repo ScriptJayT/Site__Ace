@@ -127,11 +127,14 @@ class MDX {
                 'value' => $y,
             ];
         });
-        $content = trim($split[1]);
+        $content = array_map(
+            fn($_i) => trim($_i), 
+            explode('&--&--&', $split[1])
+        );
 
         return [
             ...$front_matter,
-            'show' => [$content],
+            'show' => $content,
             'type' => 'css',
         ];
     }

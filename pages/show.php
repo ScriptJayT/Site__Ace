@@ -57,7 +57,7 @@
                     <summary>Code</summary>
                     <?php foreach($_showcase['show'] as $_case): ?>
                     <code class="showcase"><?php echo $_case; ?></code>
-                    <?php endforeach; ?>;
+                    <?php endforeach; ?>
                 </details>
             </section>
         <?php endforeach ?>
