@@ -68,7 +68,6 @@
                 <?php endif; ?>
             </section>
         <?php endforeach ?>
-
     </div>
 </body>
 </html>
