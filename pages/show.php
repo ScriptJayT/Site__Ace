@@ -11,7 +11,7 @@
     <style>
         .wrapper {
             padding-inline: 1.25rem;
-            max-width: calc(50ch + 2 * 1.25rem);
+            max-width: calc(60ch + 2 * 1.25rem);
             margin-inline: auto;
         }
     </style>
