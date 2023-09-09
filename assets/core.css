@@ -14,8 +14,13 @@
         background-color: rgb(92, 92, 207);
     }
     .img {
-        min-height: 5rem;
+        min-height: 7.5rem;
         background-color: rgb(167, 71, 71);
+        background-image: url(/assets/images/img.jpg);
+        background-size: cover;
+    }
+    .txt {
+        background-color: rgb(92, 92, 207);
     }
     .txt::after {
         content: 'Lorem Ipsum Dolor Sit Amet';
@@ -54,6 +59,8 @@
         }
 
         & content {
+            container-name: demo-root;
+            container-type: inline-size;
             display: block;
             overflow: hidden;
             resize: both;

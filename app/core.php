@@ -204,8 +204,7 @@ Class PARSER {
             elseif($has_siblings) {
                 foreach($items as $_item) {
                     $_item = trim($_item, '.');
-                    $string .= "<div class={$_item}>";
-                    $close++;
+                    $string .= "<div class={$_item}></div>";
                 }
             }
         }
