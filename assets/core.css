@@ -26,6 +26,24 @@
         content: 'Lorem Ipsum Dolor Sit Amet';
     }
 
+    nav li > a {
+        border: 2px inset;
+        transition: 200ms border-color;
+
+        &:is(:hover, :focus-visible) {
+            border-color: firebrick;
+        }
+    }
+
+    nav > a {
+        border-bottom: 2px solid transparent;
+        transition: 200ms border-color;
+
+        &:is(:hover, :focus-visible) {
+            border-color: firebrick;
+        }
+    }
+
     header:has(>h1) {
         text-transform: capitalize;
         text-align: center;
@@ -69,13 +87,26 @@
             max-height: min(50vh, 100rem);
             min-width: 4rem;
             max-width: 100%;
-            border: 2px solid red;
+            border: 2px inset firebrick;
             margin-bottom: 1.5rem;
         }
 
         & details {
             padding-block: 1.5rem;
             background-color: hsl(0, 0%, 0%, 0.5);
+
+            & summary {
+                cursor: pointer;
+                user-select: none;
+
+                &::marker {
+                    transition: 200ms color;
+                }
+
+                &:is(:hover, :focus-visible)::marker {
+                    color: firebrick;
+                }
+            }
         }
 
         & .copy-block {
@@ -87,6 +118,15 @@
                 cursor: pointer;
                 display: block;
                 margin-left: auto;
+                padding: 0.5ch;
+                border-radius: 0.5em;
+                border: 2px solid transparent;
+                transition: 200ms color, 175ms border-color;
+
+                &:is(:hover, :focus-visible) {
+                    color: firebrick;
+                    border-color: firebrick;
+                }
             }
 
             & code {
