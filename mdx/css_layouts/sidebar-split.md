@@ -13,6 +13,7 @@ emmet: .split>.box*2
 /*for demo purposes*/
 .split {
     & .box {
+        border-radius: 0;
         min-height: 10rem;
     }
 

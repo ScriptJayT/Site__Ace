@@ -27,6 +27,7 @@
     }
 
     header:has(>h1) {
+        text-transform: capitalize;
         text-align: center;
         font-size: 1.75em;
         margin-bottom: 1em;
