@@ -1,4 +1,22 @@
 title: Sidebar Split
 source: 
-emmet: 
+emmet: .split>.box*2
 ---
+
+.split {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+&--&--&
+
+/*for demo purposes*/
+.split {
+    & .box {
+        min-height: 10rem;
+    }
+
+    & .box:first-child {
+        min-width: 100px;
+    } 
+}
